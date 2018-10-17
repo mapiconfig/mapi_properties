@@ -1,0 +1,12 @@
+App:
+  server:
+    washaddress: https://gw.ycapp.yiche.com
+    address: http://extapi.ycapp.yiche.com
+    aicheaddress: http://appapi-gw.yiche.com
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.20.4.13:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
