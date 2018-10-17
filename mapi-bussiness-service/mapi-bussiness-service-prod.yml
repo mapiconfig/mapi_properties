@@ -10,7 +10,7 @@ eureka:
 #      defaultZone: http://mapi-eureka01.yiche.com/eureka,http://mapi-eureka02.yiche.com/eureka,http://mapi-eureka03.yiche.com/eureka
       defaultZone: http://zhongtai:admin123456@172.17.12.240:8761/eureka,http://zhongtai:admin123456@172.17.12.241:8761/eureka,http://zhongtai:admin123456@172.17.12.242:8761/eureka
   instance:
-    #每间隔1s，向服务端发送一次心跳，证明自己依然”存活“。
+    #每间隔5s，向服务端发送一次心跳，证明自己依然”存活“。
     lease-renewal-interval-in-seconds: 5
-    #告诉服务端，如果我2s之内没有给你发心跳，就代表我“死”了，将我踢出掉
+    #告诉服务端，如果我10s之内没有给你发心跳，就代表我“死”了，将我踢出掉
     lease-expiration-duration-in-seconds: 10
