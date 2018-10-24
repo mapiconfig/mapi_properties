@@ -1,13 +1,46 @@
+#服务后台接口域名地址
 App:
   server:
     washaddress: https://gw.ycapp.yiche.com
     address: http://extapi.ycapp.yiche.com
     aicheaddress: http://appapi-gw.yiche.com
+#打开feign 的熔断
+feign:
+  hystrix:
+    enabled: true
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://user:123456@localhost:8761/eureka
+      defaultZone: http://user:123456@localhost:8761/eureka/
   instance:
     prefer-ip-address: true
-#    lease-renewal-interval-in-seconds: 5
-#    lease-expiration-duration-in-seconds: 10
+    #每间隔1s，向服务端发送一次心跳，证明自己依然”存活“。
+    lease-renewal-interval-in-seconds: 5
+    #告诉服务端，如果我2s之内没有给你发心跳，就代表我“死”了，将我踢出掉
+    lease-expiration-duration-in-seconds: 10
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500  #并发执行的最大线程数，默认10
+  command:
+    paas-file:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3600000
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 8000  #命令执行超时时间，默认1000ms
+#refresh属性值为消息总线bus刷新--liyang9
+#hystrix.stream断路器监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream,refresh
+#javamelody 监控
+javamelody:
+  init-parameters:
+    log: true
